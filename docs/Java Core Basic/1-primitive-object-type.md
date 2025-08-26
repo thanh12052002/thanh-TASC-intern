@@ -31,4 +31,13 @@
     +, Dùng object chưa khởi tạo hoặc khởi tạo sai constructor cũng gây ra lỗi.
 
 
+Bổ sung: Khi so sánh ==  một biến primitive với 1 object wrapper class tương ứng nó vẫn ra kết quả là true.
+--> Lý do bởi vì: Java đã thực hiện ngầm định unboxing chuyển object wrapper class về primitive và so sánh chúng.
+Lý do ưu tiên unboxing vì 
+1. Tránh NullPointerException: Nếu một đối tượng wrapper có giá trị null, việc unboxing sẽ gây lỗi NullpointerException. Do đó java luôn kiểm tra xem đối tượng có phải là null trước khi thực hiện unboxing. Nếu chuyển primitive thành wrapper, sẽ không có lỗi xảy ra nhưng sẽ tạo ra 1 đối tượng mới gây lãng phí bộ nhớ.
+2. Tính nhất quán trong so sánh: So sánh hai giá trị primitvie với nhau sẽ đơn giản và hiệu quả hơn so với so sánh hai đối tượng, vì so sánh đối tượng bằng == sẽ so sánh địa chỉ không phải giá trị.
+Ví dụ: so sánh int và Integer (Ưu tiên unboxing)
+int a = 10;
+Integer b = new Integer(10);
+a == b kết quả true vì unboxing b thành int và so sánh 10 == 10.
 

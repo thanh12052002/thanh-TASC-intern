@@ -32,3 +32,21 @@ System.out.println(s4 == s5); // trả về true.
 - So sánh bằng .equals() (so sánh nội dung);
 - So sánh không phân biệt hoa thường .equalsIgnoreCase();
 - So sánh theo thứ tự từ điển: .compareTo();
+
+Bổ sung: Tính bất biến của String trong java:
+- Ưu điểm: Giúp an toàn trong môi trường đa luồng mà không cần đồng bộ hóa. Tức cùng một giá trị String có thể chỉ lưu trữ một lần trong pool, và dùng chung cho nhiều lần mà không cần tạo mới gây lãng phí bộ nhớ.
+- Nhược điểm: Ưu điểm trên cũng gây ra nhược điểm ví dụ khi in thông tin đối tượng ta cộng các thông tin này vào, nhưng String bất biến nên mỗi lần cộng nó lại tạo 1 đối tượng String với giá trị mới trong khi ta chỉ cần một kết quả duy nhất. Do đó, ra đời StringBuilder và StringBuffer. (StringBuffer an toàn trong môi trường đa luồng khi thay đổi các luồng đồng bộ theo).
+- Nhầm lần: StringBuilder và StringBuffer không làm thay đổi tính bất biến của String tức nó không thay đổi String ban đầu.
+- String bất biến (immutable) vì nội dung của nó được lưu trong một mảng char[] được khai báo final và không có phương thức nào thay đối trực tiếp nội dung này.
+- StringBuilder/StringBuffer mutable vì nội dung được lưu trong mảng char[] có thể thay đổi được, các phương thức append(), insert() sẽ trực tiếp sửa đổi nó.
+
+Tức khác biệt do trong class String việc lưu trữ mảng kí tự được đặt là final, nên ko thể gán lại, còn lớp StringBuilder bên trong nó không đặt final.  Và khi truyền String vào StringBuilder khi khởi tạo bên trong class StringBuilder nó tạo copy nội dung String vào mảng chuỗi mới, sau khi thao tác xong nó có hàm toString() bên trong nó new ra một String rồi gán mảng char[] thao tác sau cùng cho nó khi đó kết quả trả ra là một new String() nên bất biến.
+
+- Tại sao cần .toString(): do khi thay đổi ta muốn kết quả là 1 String bất biến tức 
+- Ví dụ: StringBuilder sb = new StringBuilder("abc");
+lúc này sb vẫn là StringBuilder có thể dùng hàm để thay đổi được // someMethod(sb) // phương thức này có thể chỉnh sửa sb. --> Nội dung không ổn định.
+Tuy nhiên nếu ta gọi: String result = sb.toString();
+result lúc này sẽ là bấy biến, không ai có thể sửa. 
+
+
+- StringBuilder hay sử dụng trong truy vấn SQL. 
