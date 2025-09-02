@@ -33,7 +33,7 @@ public class HashSet<E> extends AbstractSet<E> implements Set<E>, Cloneable, jav
 
 ---------------
 tại sao lại tạo giá trị mặc định là object rỗng mà không phải cái gì khác
-ChatGPT đã nói:
+
 
 Rất hay – đây là câu hỏi giúp hiểu sâu hơn cách thiết kế của HashSet và HashMap.
 
