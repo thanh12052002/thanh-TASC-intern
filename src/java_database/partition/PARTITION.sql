@@ -1,0 +1,13 @@
+CREATE TABLE dang_ky_mon_hoc (
+    id BIGINT PRIMARY KEY,
+    sinh_vien_khoa_id BIGINT,
+    lop_hoc_phan_id BIGINT,
+    nam_hoc INT,
+    hoc_ky INT
+)
+PARTITION BY RANGE COLUMNS (nam_hoc, hoc_ky) (
+    PARTITION p2024_1 VALUES LESS THAN (2024, 2),
+    PARTITION p2024_2 VALUES LESS THAN (2024, 3),
+    PARTITION p2025_1 VALUES LESS THAN (2025, 2),
+    PARTITION pmax    VALUES LESS THAN (MAXVALUE, MAXVALUE)
+);
